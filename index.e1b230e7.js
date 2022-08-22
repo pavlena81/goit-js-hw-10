@@ -1,0 +1,2 @@
+!function(){var t=document.querySelector("#search-box");document.querySelector(".country-list");function n(t){return t.preventDefault(),fetch("https://restcountries.com/#api-endpoints-v3-name").then((function(t){if(!t.ok)throw new Error(t.status);return t.json()}))}t.addEventListener("click",(function(){n().then((function(t){return renderUserList(t)})).catch((function(t){return console.log(t)}))}))}();
+//# sourceMappingURL=index.e1b230e7.js.map

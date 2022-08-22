@@ -1,2 +1,0 @@
-!function(){var e=document.querySelector("#search-box");document.querySelector(".country-list");function n(){return fetch("https://restcountries.com/#api-endpoints-v3-namejsonplaceholder.typicode.com/users`").then((function(e){if(!e.ok)throw new Error(e.status);return e.json()}))}e.addEventListener("click",(function(){n().then((function(e){return renderUserList(e)})).catch((function(e){return console.log(e)}))}))}();
-//# sourceMappingURL=index.bbaaded4.js.map
