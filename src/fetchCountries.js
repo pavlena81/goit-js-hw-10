@@ -41,9 +41,10 @@ fetchCountriesById.addEventListener("click", () => {
     .catch((error) => console.log(error));
 });
 
-function fetchCountries() {
+function fetchCountries(e) {
+  e.preventDefault();
   return fetch(
-    "https://restcountries.com/#api-endpoints-v3-namejsonplaceholder.typicode.com/users`"
+    "https://restcountries.com/#api-endpoints-v3-name"
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.status);
