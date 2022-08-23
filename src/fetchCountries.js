@@ -31,23 +31,7 @@
 // }
 
 //==========================================================
-const fetchCountriesById = document.querySelector('#search-box');
 
-const  countryList = document.querySelector('.country-list');
-
-fetchCountriesById.addEventListener("click", onSearch);
-  
-  
-function onSearch(e) {
-  e.preventDefault();
-  
-   fetchCountriesById.textContent = e.currentTarget.value;
-
-  fetchCountries()
-    .then(renderCountryList)
-    .catch((error) => console.log(error))
-    .finally(()=> reset())
-};
 
 // const SEARCH_PARAMS = 'name,capital,population,flags,languages';
 
@@ -65,22 +49,6 @@ function fetchCountries() {
   });
 }
 
-function renderCountryList(users) {
-  const markup = users
-    .map((user) => {
-      return `
-          <li>
-            <p><b>Name</b>: ${user.name}</p>
-            <p><b>capital</b>: ${user.capital}</p>
-            <p><b>population</b>: ${user.population}</p>
-              <p><b>flags.svg</b>: ${user.flags.svg}</p>
-              <p><b>languages</b>: ${user.languages}</p>
-          </li>
-      `;
-    })
-    .join("");
-  countryList.innerHTML = markup;
-}
 
 export default fetchCountries;
 //=========================================
