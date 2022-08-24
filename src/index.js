@@ -40,14 +40,15 @@ function onSearch(e) {
 
 function renderCountryList(countries) {
   const markup = countries
-    .map((country) => {
+    .map(({name,capital,population,flags,languages}) => {
       return `
           <li>
-            <p><b>Name</b>: ${country.name}</p>
-            <p><b>capital</b>: ${country.capital}</p>
-            <p><b>population</b>: ${country.population}</p>
-              <p><b>flags.svg</b>: ${country.flags.svg}</p>
-              <p><b>languages</b>: ${country.languages}</p>
+          <h2 class="country-name">b>Name</b>:${name.official}</h2>
+            <p><b>Name</b>: ${name.official}</p>
+            <p><b>capital</b>: ${capital}</p>
+            <p><b>population</b>: ${population}</p>
+              <img class="country-flag" <b>flags</b>: src = "${flags.svg}" alt="flags of ${name.official}" width = "50">
+              <p><b>languages</b>: ${languages}</p>
           </li>
       `;
     })
