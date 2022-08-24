@@ -34,13 +34,16 @@
 
 
 // const SEARCH_PARAMS = 'name,capital,population,flags,languages';
+const URL = 'https://restcountries.com/v3.1/name/';
+const fieldsFilter = 'fields=name,capital,population,flags,languages';
 
-
-function fetchCountries() { 
+function fetchCountries(name) { 
 
   
   return fetch(
-    "https://restcountries.com/v2/all?fields=name,capital,population,flags,languages"
+    `${URL}${name}?${fieldsFilter}`
+    // `https://restcountries.com/v2/name/{name}?fields=name,capital,population,flags,languages`
+    // "https://restcountries.com/v2/all?fields=name,capital,population,flags,languages"
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.status);

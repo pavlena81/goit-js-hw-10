@@ -23,18 +23,19 @@ fetchCountriesById.addEventListener("input", debounce(onSearch,DEBOUNCE_DELAY));
 function onSearch(e) {
   e.preventDefault();
   
-  
-   const searchCountries = e.target.value;
+  // countryList.innerHTML = '';
+   const searchCountries = e.target.value.trim();
 
     fetchCountries(searchCountries)
         
     .then(countries =>{
             if (countries.length > 10) {
               return Notify.info('Too many matches found. Please enter a more specific name.');
-          }
+      };
+    //  return renderCountryList;
       } )
     .catch((error) =>  Notify.failure('error'))
-    .finally(()=> searchCountries.reset)
+    // .finally(()=> searchCountries.reset)
 };
 
 
