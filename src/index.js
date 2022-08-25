@@ -23,7 +23,7 @@ fetchCountriesById.addEventListener("input", debounce(onSearch,DEBOUNCE_DELAY));
 function onSearch(e) {
   e.preventDefault();
   
-  // countryList.innerHTML = '';
+   countryList.innerHTML = '';
    const searchCountries = e.target.value.trim();
 
     fetchCountries(searchCountries)
@@ -35,10 +35,14 @@ function onSearch(e) {
       if (countries.length === 1) {
          countryList.insertAdjacentHTML('beforeend', renderCountryList(countries));
         // renderCountryList(countries);
+      };
+      // Если бэкенд вернул от 2 - х до 10 - х стран, под тестовым полем отображается список
+      //  найденных стран.Каждый элемент списка состоит из флага и имени страны.
+      if (countries.length >= 2 || countries.length <= 10) {
+        countryList.insertAdjacentHTML('beforeend', renderCountryList(countries)) = Arrey.markup;
       }
-    
       } )
-    .catch((error) =>  Notify.failure('error'))
+    .catch((error) =>  Notify.failure('Oops, there is no country with that name'))
     //  .finally(()=> searchCountries.reset)
 };
 
