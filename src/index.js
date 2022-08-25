@@ -32,10 +32,14 @@ function onSearch(e) {
             if (countries.length > 10) {
               return Notify.info('Too many matches found. Please enter a more specific name.');
       };
-    //  return renderCountryList;
+      if (countries.length === 1) {
+         countryList.insertAdjacentHTML('beforeend', renderCountryList(countries));
+        // renderCountryList(countries);
+      }
+    
       } )
     .catch((error) =>  Notify.failure('error'))
-    // .finally(()=> searchCountries.reset)
+    //  .finally(()=> searchCountries.reset)
 };
 
 
@@ -44,15 +48,16 @@ function renderCountryList(countries) {
     .map(({name,capital,population,flags,languages}) => {
       return `
           <li>
-          <h2 class="country-name">b>Name</b>:${name.official}</h2>
-            <p><b>Name</b>: ${name.official}</p>
+          <h2 class="country-name"<b>Name</b>:${name.official}</h2>
+            
             <p><b>capital</b>: ${capital}</p>
             <p><b>population</b>: ${population}</p>
-              <img class="country-flag" <b>flags</b>: src = "${flags.svg}" alt="flags of ${name.official}" width = "50">
-              <p><b>languages</b>: ${languages}</p>
+              <img class="country-flag"  src = "${flags.svg}" alt="flags of ${name.official}" width = "50">
+              <p><b>languages</b>: ${Object.values(languages)}</p>
           </li>
       `;
     })
     .join("");
-  countryList.innerHTML = markup;
+  return markup;
+//  return countryList.innerHTML = markup;
 }
