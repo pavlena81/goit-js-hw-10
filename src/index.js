@@ -26,23 +26,23 @@ function onSearch(e) {
    countryList.innerHTML = '';
    const searchCountries = e.target.value.trim();
 
-    fetchCountries(searchCountries)
+  fetchCountries(searchCountries)
         
-    .then(countries =>{
-            if (countries.length > 10) {
-              return Notify.info('Too many matches found. Please enter a more specific name.');
-      };
+    .then(countries => {
+      if (countries.length > 10) {
+        return Notify.info('Too many matches found. Please enter a more specific name.');
+      }
       if (countries.length === 1) {
-         countryList.insertAdjacentHTML('beforeend', renderCountryList(countries));
+        countryList.insertAdjacentHTML('beforeend', renderCountryList(countries));
         // renderCountryList(countries);
-      };
+      }
       // Если бэкенд вернул от 2 - х до 10 - х стран, под тестовым полем отображается список
       //  найденных стран.Каждый элемент списка состоит из флага и имени страны.
       if (countries.length >= 2 || countries.length <= 10) {
-        countryList.insertAdjacentHTML('beforeend', renderCountryList(countries)) = Arrey.markup;
+        countryInfo.insertAdjacentHTML('beforeend', renderCountryInfo(countries));
       }
-      } )
-    .catch((error) =>  Notify.failure('Oops, there is no country with that name'))
+    })
+    .catch(error => { Notify.failure('Oops, there is no country with that name') })
     //  .finally(()=> searchCountries.reset)
 };
 
@@ -64,4 +64,18 @@ function renderCountryList(countries) {
     .join("");
   return markup;
 //  return countryList.innerHTML = markup;
+}
+
+function renderCountryInfo(countries) {
+  const onCountryInfo = countries
+    .map(({ flags, name }) => {
+      return `
+    <li>
+      <img class="country-flag"  src = "${flags.svg}" alt="flags of ${name.official}" width = "50">
+      <h2 class="country-name" <span>${name.official}</span></h2>
+      </li> 
+       `;
+    })
+    .join("");
+  return onCountryInfo;
 }
