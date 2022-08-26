@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce';
 
 // var debounce = require('lodash.debounce');
 
-import fetchCountries from './fetchCountries';
+import  fetchCountries  from './fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -17,33 +17,50 @@ const countryList = document.querySelector('.country-list');
 
 const countryInfo = document.querySelector('.country-info');
 
-fetchCountriesById.addEventListener("input", debounce(onSearch,DEBOUNCE_DELAY));
+fetchCountriesById.addEventListener("input", debounce(onSearch, DEBOUNCE_DELAY));
   
   
 function onSearch(e) {
   e.preventDefault();
-  
-   countryList.innerHTML = '';
+
+  countryInfo.innerHTML = '';
+     countryList.innerHTML = '';
    const searchCountries = e.target.value.trim();
 
   fetchCountries(searchCountries)
         
     .then(countries => {
       if (countries.length > 10) {
-        return Notify.info('Too many matches found. Please enter a more specific name.');
+         Notify.info('Too many matches found. Please enter a more specific name.');
+        return clearInput();
+        
       }
+
+      
       if (countries.length === 1) {
-        countryList.insertAdjacentHTML('beforeend', renderCountryList(countries));
-        // renderCountryList(countries);
+        return countryList.insertAdjacentHTML('beforeend', renderCountryList(countries));
+        
+         countryInfo.insertAdjacentHTML = '';
+
       }
+      
       // Если бэкенд вернул от 2 - х до 10 - х стран, под тестовым полем отображается список
       //  найденных стран.Каждый элемент списка состоит из флага и имени страны.
       if (countries.length >= 2 || countries.length <= 10) {
-        countryInfo.insertAdjacentHTML('beforeend', renderCountryInfo(countries));
+        return countryInfo.insertAdjacentHTML('beforeend', renderCountryInfo(countries));
+        // countryList.insertAdjacentHTML = '';
       }
+      
+      
     })
-    .catch(error => { Notify.failure('Oops, there is no country with that name') })
-    //  .finally(()=> searchCountries.reset)
+    .catch(error => {
+      return Notify.failure('Oops, there is no country with that name');
+      clearInput();
+      return error;
+    })
+  
+    //  .finally(()=> clearInput())
+     
 };
 
 
@@ -64,7 +81,7 @@ function renderCountryList(countries) {
     .join("");
   return markup;
 //  return countryList.innerHTML = markup;
-}
+};
 
 function renderCountryInfo(countries) {
   const onCountryInfo = countries
@@ -78,4 +95,10 @@ function renderCountryInfo(countries) {
     })
     .join("");
   return onCountryInfo;
-}
+};
+
+function clearInput() {
+  // fetchCountriesById.reset();
+  countryInfo.innerHTML = '';
+  countryList.innerHTML = '';
+};
